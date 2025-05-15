@@ -57,5 +57,10 @@ fi
 
 chmod 600 "$SSH_CONFIG"
 
-echo "Connecting to remote VM..."
-ssh -A -i "$VM_SSH_KEY_PATH" "ubuntu@$REMOTE_IP"
+echo "Copying .bash_aliases to remote machine..."
+if [ -f "$(dirname "$0")/.bash_aliases" ]; then
+    scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/.bash_aliases" "ubuntu@$REMOTE_IP:~/.bash_aliases" || error_exit "Failed to copy .bash_aliases file"
+    echo ".bash_aliases file copied successfully"
+else
+    echo "Warning: .bash_aliases file not found in script directory, skipping..."
+fi
