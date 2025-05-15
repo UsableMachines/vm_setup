@@ -5,8 +5,8 @@ error_exit() {
     exit 1
 }
 
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-    error_exit "Usage: $0 <remote-ip> <path-to-ssh-key> [path-to-env-file]"
+if [ "$#" -lt 2 ]; then
+    error_exit "Usage: $0 <remote-ip> <path-to-ssh-key>"
 fi
 
 REMOTE_IP="$1"
