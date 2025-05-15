@@ -73,3 +73,5 @@ copy_file() {
 for file in "${FILES_TO_COPY[@]}"; do
     copy_file "$file"
 done
+
+ssh -i "$VM_SSH_KEY_PATH" ubuntu@$REMOTE_IP "bash ~/setup.sh"
