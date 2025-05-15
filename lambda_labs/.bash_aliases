@@ -6,3 +6,7 @@ alias tmxs="tmux send-keys -t"
 alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
+
+if [ -f ~/.env ]; then
+    . ~/.env
+fi

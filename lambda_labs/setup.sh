@@ -57,6 +57,14 @@ fi
 
 chmod 600 "$SSH_CONFIG"
 
+echo "Copying .env to remote machine..."
+if [ -f "$(dirname "$0")/.env" ]; then
+    scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/.env" "ubuntu@$REMOTE_IP:~/.env" || error_exit "Failed to copy .env file"
+    echo ".env file copied successfully"
+else
+    echo "Warning: .env file not found in script directory, skipping..."
+fi
+
 echo "Copying .bash_aliases to remote machine..."
 if [ -f "$(dirname "$0")/.bash_aliases" ]; then
     scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/.bash_aliases" "ubuntu@$REMOTE_IP:~/.bash_aliases" || error_exit "Failed to copy .bash_aliases file"
