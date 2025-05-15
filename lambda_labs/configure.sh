@@ -57,18 +57,19 @@ fi
 
 chmod 600 "$SSH_CONFIG"
 
-echo "Copying .env to remote machine..."
-if [ -f "$(dirname "$0")/.env" ]; then
-    scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/.env" "ubuntu@$REMOTE_IP:~/.env" || error_exit "Failed to copy .env file"
-    echo ".env file copied successfully"
-else
-    echo "Warning: .env file not found in script directory, skipping..."
-fi
+FILES_TO_COPY=(".env" ".bash_aliases" "setup.sh")
 
-echo "Copying .bash_aliases to remote machine..."
-if [ -f "$(dirname "$0")/.bash_aliases" ]; then
-    scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/.bash_aliases" "ubuntu@$REMOTE_IP:~/.bash_aliases" || error_exit "Failed to copy .bash_aliases file"
-    echo ".bash_aliases file copied successfully"
-else
-    echo "Warning: .bash_aliases file not found in script directory, skipping..."
-fi
+copy_file() {
+    local filename="$1"
+    echo "Copying $filename to remote machine..."
+    if [ -f "$(dirname "$0")/$filename" ]; then
+        scp -i "$VM_SSH_KEY_PATH" "$(dirname "$0")/$filename" "ubuntu@$REMOTE_IP:~/$filename" || error_exit "Failed to copy $filename file"
+        echo "$filename file copied successfully"
+    else
+        echo "Warning: $filename file not found in script directory, skipping..."
+    fi
+}
+
+for file in "${FILES_TO_COPY[@]}"; do
+    copy_file "$file"
+done
