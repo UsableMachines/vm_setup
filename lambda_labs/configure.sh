@@ -32,11 +32,8 @@ ssh-add "$GITHUB_SSH_KEY" || error_exit "Failed to add GitHub SSH key to agent"
 echo "Keys currently loaded in SSH agent:"
 ssh-add -l
 
-echo "Verifying GitHub SSH access..."
-if ! ssh -T git@github.com 2>&1 | grep -q "success"; then
-    error_exit "GitHub SSH verification failed. Please check your GitHub SSH setup."
-fi
-echo "GitHub SSH verification successful!"
+echo "Adding GitHub's host key to remote machine's known_hosts..."
+ssh -i "$VM_SSH_KEY_PATH" ubuntu@$REMOTE_IP 'mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts'
 
 SSH_CONFIG="$HOME/.ssh/config"
 SSH_DIR="$HOME/.ssh"
