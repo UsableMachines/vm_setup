@@ -22,3 +22,7 @@ if [ ! -d "kindo-evals" ]; then
 else
     echo "kindo-evals repository already exists, skipping clone..."
 fi
+
+echo "Running setup script from kindo-evals repository..."
+~/kindo-evals/scripts/setup.sh
+
