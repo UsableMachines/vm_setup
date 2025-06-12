@@ -23,6 +23,6 @@ else
     echo "kindo-evals repository already exists, skipping clone..."
 fi
 
-echo "Running setup script from kindo-evals repository..."
-~/kindo-evals/scripts/setup.sh
+echo "Running setup script from kindo-evals repository in the same shell..."
+source ~/kindo-evals/scripts/setup.sh
 
