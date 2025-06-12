@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ~/.bashrc
+echo "Sourcing .env file to use environment variables in the script"
+source ~/.env
 
 if ! command -v uv &>/dev/null; then
     echo "Installing uv..."
