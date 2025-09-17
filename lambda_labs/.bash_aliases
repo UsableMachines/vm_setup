@@ -7,6 +7,8 @@ alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
 
+alias ns="nvidia-smi"
+
 if [ -f ~/.env ]; then
     . ~/.env
 fi
